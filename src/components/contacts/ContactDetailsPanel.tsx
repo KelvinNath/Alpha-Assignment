@@ -1,6 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import type { Contact } from "../../features/contacts/types"
 import { sameContact } from "../../features/contacts/utils/contacts"
+
+function parseLabels(value: string) {
+  return value
+    .split(",")
+    .map((label) => label.trim())
+    .filter(Boolean)
+}
 import { focusRing } from "../../lib/cx"
 import { Avatar } from "../ui/Avatar"
 import { Button, IconButton } from "../ui/Button"
@@ -18,7 +25,9 @@ export function ContactDetailsPanel({
 }) {
   const panelRef = useRef<HTMLElement>(null)
   const [draft, setDraft] = useState(contact)
-  const isDirty = !sameContact(draft, contact)
+  const [labelsText, setLabelsText] = useState(contact.labels.join(", "))
+  const draftToSave = { ...draft, labels: parseLabels(labelsText) }
+  const isDirty = !sameContact(draftToSave, contact)
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -111,7 +120,12 @@ export function ContactDetailsPanel({
 
         <div className="mt-[22px] mb-[19px] h-px bg-[rgba(65,61,95,0.1)]" />
 
-        <ContactForm draft={draft} onChange={update} />
+        <ContactForm
+          draft={draft}
+          labelsText={labelsText}
+          onChange={update}
+          onLabelsTextChange={setLabelsText}
+        />
 
         <div className="mt-auto flex justify-end gap-[9px] pt-[23px]">
           <Button className="min-h-[42px] px-4" onClick={onClose}>
@@ -121,7 +135,7 @@ export function ContactDetailsPanel({
             className="min-h-[42px] min-w-[134px] px-4"
             disabled={!draft.name.trim()}
             icon="check"
-            onClick={() => onSave(draft)}
+            onClick={() => onSave(draftToSave)}
             variant="primary"
           >
             Save changes

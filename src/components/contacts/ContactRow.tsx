@@ -2,7 +2,6 @@ import type { Contact } from "../../features/contacts/types"
 import { cx, focusRing } from "../../lib/cx"
 import { Avatar } from "../ui/Avatar"
 import { Badge, StageBadge } from "../ui/Badge"
-import { IconButton } from "../ui/Button"
 
 export function ContactRow({
   contact,
@@ -14,7 +13,7 @@ export function ContactRow({
   return (
     <tr
       className={cx(
-        "group cursor-pointer transition duration-150 hover:bg-[rgba(245,243,255,0.58)] hover:shadow-[inset_3px_0_var(--color-primary)] focus-visible:relative focus-visible:z-[1] last:[&>td]:border-b-0",
+        "cursor-pointer transition duration-150 hover:bg-[rgba(245,243,255,0.58)] hover:shadow-[inset_3px_0_var(--color-primary)] focus-visible:relative focus-visible:z-[1] last:[&>td]:border-b-0",
         focusRing,
       )}
       onClick={() => onSelect(contact)}
@@ -68,16 +67,8 @@ export function ContactRow({
           )}
         </div>
       </td>
-      <td className="h-[62px] border-b border-[rgba(78,73,105,0.07)] px-[13px] text-[10px] whitespace-nowrap text-[#626277]">
+      <td className="h-[62px] border-b border-[rgba(78,73,105,0.07)] px-[13px] pr-[19px] text-[10px] whitespace-nowrap text-[#626277]">
         <StageBadge stage={contact.stage} />
-      </td>
-      <td className="h-[62px] w-[42px] border-b border-[rgba(78,73,105,0.07)] pr-3 pl-[13px]">
-        <IconButton
-          className="size-7 opacity-0 group-hover:opacity-100 focus:opacity-100 focus-visible:opacity-100"
-          icon="more"
-          label={`More options for ${contact.name}`}
-          onClick={(event) => event.stopPropagation()}
-        />
       </td>
     </tr>
   )

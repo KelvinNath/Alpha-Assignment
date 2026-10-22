@@ -8,10 +8,14 @@ const textInput = cx(fieldControl, "h-[38px] px-[11px]")
 
 export function ContactForm({
   draft,
+  labelsText,
   onChange,
+  onLabelsTextChange,
 }: {
   draft: Contact
+  labelsText: string
   onChange: <K extends keyof Contact>(key: K, value: Contact[K]) => void
+  onLabelsTextChange: (value: string) => void
 }) {
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-[15px] max-[650px]:grid-cols-1">
@@ -75,17 +79,9 @@ export function ContactForm({
       <Field icon="tag" label="Labels" wide>
         <input
           className={textInput}
-          onChange={(event) =>
-            onChange(
-              "labels",
-              event.target.value
-                .split(",")
-                .map((label) => label.trim())
-                .filter(Boolean),
-            )
-          }
+          onChange={(event) => onLabelsTextChange(event.target.value)}
           placeholder="Add labels, separated by commas"
-          value={draft.labels.join(", ")}
+          value={labelsText}
         />
       </Field>
       <Field icon="note" label="Notes" wide>

@@ -24,8 +24,7 @@ export function ContactTable({
               <th className={headerCell}>Role</th>
               <th className={headerCell}>Owner</th>
               <th className={headerCell}>Labels</th>
-              <th className={headerCell}>Stage</th>
-              <th aria-label="Actions" className={`${headerCell} w-[42px] pr-3`} />
+              <th className={`${headerCell} pr-[19px]`}>Stage</th>
             </tr>
           </thead>
           <tbody>

@@ -1,7 +1,6 @@
 import { stages, type Contact, type Stage } from "../../features/contacts/types"
 import { cx } from "../../lib/cx"
 import { Icon } from "../ui/Icon"
-import { IconButton } from "../ui/Button"
 import { ContactCard } from "./ContactCard"
 
 const columns: Record<Stage, { surface: string; indicator: string }> = {
@@ -44,17 +43,12 @@ export function ContactBoard({
             )}
             key={stage}
           >
-            <div className="flex min-h-10 items-center justify-between pr-[3px] pb-2 pl-1.5">
-              <div className="flex items-center gap-2">
-                <span
-                  className={cx("size-2 rounded-full border-2", tone.indicator)}
-                />
-                <strong className="text-[11px] font-semibold">{stage}</strong>
-                <span className="grid h-5 min-w-5 place-items-center rounded-md bg-white/65 text-[9px] text-muted">
-                  {stageContacts.length}
-                </span>
-              </div>
-              <IconButton icon="more" label={`${stage} column options`} />
+            <div className="flex min-h-10 items-center gap-2 pr-[3px] pb-2 pl-1.5">
+              <span className={cx("size-2 rounded-full border-2", tone.indicator)} />
+              <strong className="text-[11px] font-semibold">{stage}</strong>
+              <span className="grid h-5 min-w-5 place-items-center rounded-md bg-white/65 text-[9px] text-muted">
+                {stageContacts.length}
+              </span>
             </div>
             <div className="flex flex-col gap-2">
               {stageContacts.map((contact) => (
